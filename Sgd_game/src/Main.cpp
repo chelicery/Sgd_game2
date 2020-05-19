@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Game *game = nullptr;
-
+int frameAnime = 0;
 int main(int argc, char *arhv[]) {
 
 	const int FPS = 60;
@@ -22,10 +22,17 @@ int main(int argc, char *arhv[]) {
 		game->render();
 
 		frameTime = SDL_GetTicks() - frameStart;
+		frameAnime++;
+
+		if (FPS / frameAnime == 4) {
+			std::cout << " frameAnime: " << frameAnime << std::endl;
+			frameAnime = 0;
+		}
 
 		if (frameDelay > frameTime) {
 			SDL_Delay(frameDelay - frameTime);
 		}
+		
 
 	}
 	game->clean();
