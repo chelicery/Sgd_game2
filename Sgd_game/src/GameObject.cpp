@@ -1,10 +1,11 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 int counter = 0;
+
 GameObject::GameObject(const char* texturesheet, int x, int y) {
 
 	objTexture = TextureManager::LoadTexture(texturesheet);
-
+	//physics = Physics::Physics();
 	xpos = x;
 	ypos = y;
 }
@@ -52,10 +53,6 @@ void GameObject::Update(int mod) {
 
 
 
-
-
-
-	//xpos++;
     ypos++;
 	srcRect.h = 32;
 	srcRect.w = 32;
@@ -72,8 +69,8 @@ void GameObject::Update(int mod) {
 	destRect.x = xpos;
 	destRect.y = ypos;
 
-	destRect.w = srcRect.w * 2;
-	destRect.h = srcRect.h * 2;
+	destRect.w = srcRect.w;
+	destRect.h = srcRect.h;
 
 }
 void GameObject::Render() {
@@ -82,3 +79,7 @@ void GameObject::Render() {
 }
 
 
+void GameObject::set_camera() {
+
+
+}

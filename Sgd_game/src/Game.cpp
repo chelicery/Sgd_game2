@@ -34,7 +34,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		}
 		isRunning = true;
 	}
-	player = new GameObject("player.png", 0,0);
+	player = new GameObject("player.png", 32,256);
 	map = new Map();
 		
 }
