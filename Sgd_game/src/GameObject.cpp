@@ -9,22 +9,63 @@ GameObject::GameObject(const char* texturesheet, int x, int y) {
 	ypos = y;
 }
 
-void GameObject::Update() {
+void GameObject::Update(int mod) {
 
-	xpos++;
-	ypos++;
+
+	if (alive) {
+
+
+
+		//elo = physics->CheckCollision(destRect, kol);
+
+		auto kstate = SDL_GetKeyboardState(NULL);
+
+			if (kstate[SDL_SCANCODE_LEFT]) {
+				xpos -= (4.0);
+			}
+			if (kstate[SDL_SCANCODE_RIGHT] /*&& !elo*/) {
+				xpos += (2.0);
+			}
+			if (kstate[SDL_SCANCODE_UP] /*&& !elo*/) {
+
+				ypos -= (4.0);
+
+			}
+			if (kstate[SDL_SCANCODE_RCTRL]) {
+				destRect.x = 440;
+				destRect.y = 250;
+				;
+			}
+			//speed = physics->SpeedDecrease();
+			if (kstate[SDL_SCANCODE_DOWN]) {
+				ypos += 2.0;
+
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+	//xpos++;
+    ypos++;
 	srcRect.h = 32;
 	srcRect.w = 32;
-
-	if (counter % 4 == 1) {
+	srcRect.y = 0;
+	if (mod <= 6) {
 		srcRect.x = 32;
-		srcRect.y = 0;
 	}
 	else {
 		srcRect.x = 0;
-		srcRect.y = 0;
 	}
-
 
 	counter++;
 	

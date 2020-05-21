@@ -45,14 +45,14 @@ void Game::handleEvents(){
 	switch (event.type) {
 	case SDL_QUIT:
 		isRunning = false;
-
+		break;
 	default:
 		break;
 	}
 
 };
-void Game::update(){
-	player->Update();
+void Game::update(int mod){
+	player->Update(mod);
 
 };
 void Game::render(){

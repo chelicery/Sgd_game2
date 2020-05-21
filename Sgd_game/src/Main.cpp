@@ -18,11 +18,13 @@ int main(int argc, char *arhv[]) {
 		frameStart = SDL_GetTicks();
 		
 		game->handleEvents();
-		game->update();
+		game->update(frameAnime);
 		game->render();
 
 		frameTime = SDL_GetTicks() - frameStart;
 		frameAnime++;
+		std::cout << " frameAnime outside: " << frameAnime << std::endl;
+
 
 		if (FPS / frameAnime == 4) {
 			std::cout << " frameAnime: " << frameAnime << std::endl;
