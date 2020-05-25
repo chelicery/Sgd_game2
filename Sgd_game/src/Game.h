@@ -21,6 +21,7 @@ public:
 	void clean();
 	bool running();
 
+
 	static SDL_Renderer *renderer;
 
 private:

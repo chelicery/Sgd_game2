@@ -1,14 +1,14 @@
-
+#pragma once
 #include "Game.h"
-
+#include <vector>
 class Map {
 public:
 
 	Map();
 	~Map();
-
-	void LoadMap(int arr[20][25]);
-	void DrawMap();
+	void LoadMap(int arr[16][50]);
+	void DrawMap(int velocity);
+	std::vector<SDL_Rect> getColliders();
 
 
 
@@ -19,8 +19,8 @@ private:
 	SDL_Texture* mud;
 	SDL_Texture* top;
 	SDL_Texture* sky;
-
-
-	int map[20][25];
+	SDL_Rect collider;
+	std::vector<SDL_Rect> colliders;
+	int map[16][50];
 };
 

@@ -9,7 +9,7 @@ class Physics
 		~Physics();
 
 		SDL_Rect Gravity(SDL_Rect rect);
-		bool Collision(SDL_Rect* rect1,SDL_Rect* rect2);
+		bool CheckCollision(SDL_Rect rect1,SDL_Rect rect2);
 	private:
 
 

@@ -23,11 +23,9 @@ int main(int argc, char *arhv[]) {
 
 		frameTime = SDL_GetTicks() - frameStart;
 		frameAnime++;
-		std::cout << " frameAnime outside: " << frameAnime << std::endl;
 
 
 		if (FPS / frameAnime == 4) {
-			std::cout << " frameAnime: " << frameAnime << std::endl;
 			frameAnime = 0;
 		}
 

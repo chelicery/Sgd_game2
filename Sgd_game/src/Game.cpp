@@ -52,13 +52,17 @@ void Game::handleEvents(){
 
 };
 void Game::update(int mod){
-	player->Update(mod);
+
+		player->Update(mod);
+
 
 };
 void Game::render(){
 	SDL_RenderClear(renderer);
-	map->DrawMap();
+	map->DrawMap(player->getVelocity());
 	player->Render();
+	player->setCollidingRects(map->getColliders());
+
 	SDL_RenderPresent(renderer);
 };
 void Game::clean(){
@@ -72,3 +76,4 @@ void Game::clean(){
 bool Game::running() {
 	return isRunning;
 }
+

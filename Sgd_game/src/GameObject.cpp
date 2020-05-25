@@ -1,13 +1,15 @@
 #include "GameObject.h"
 #include "TextureManager.h"
-int counter = 0;
-
+#include "Physics.h"
+int pauseState = 1;
+bool elo;
+Physics *physics;
 GameObject::GameObject(const char* texturesheet, int x, int y) {
 
 	objTexture = TextureManager::LoadTexture(texturesheet);
-	//physics = Physics::Physics();
 	xpos = x;
 	ypos = y;
+	physics = new Physics;
 }
 
 void GameObject::Update(int mod) {
@@ -16,47 +18,51 @@ void GameObject::Update(int mod) {
 	if (alive) {
 
 
-
-		//elo = physics->CheckCollision(destRect, kol);
-
 		auto kstate = SDL_GetKeyboardState(NULL);
 
-			if (kstate[SDL_SCANCODE_LEFT]) {
-				xpos -= (4.0);
-			}
-			if (kstate[SDL_SCANCODE_RIGHT] /*&& !elo*/) {
-				xpos += (2.0);
-			}
-			if (kstate[SDL_SCANCODE_UP] /*&& !elo*/) {
+		if (kstate[SDL_SCANCODE_LEFT]) {
+			xpos -= (2.0) * velocity;
+		}
+		if (kstate[SDL_SCANCODE_RIGHT] /*&& !elo*/) {
+			xpos += (2.0)* velocity;
+		}
+		if (kstate[SDL_SCANCODE_UP] /*&& !elo*/) {
 
-				ypos -= (4.0);
-
-			}
-			if (kstate[SDL_SCANCODE_RCTRL]) {
-				destRect.x = 440;
-				destRect.y = 250;
-				;
-			}
-			//speed = physics->SpeedDecrease();
-			if (kstate[SDL_SCANCODE_DOWN]) {
-				ypos += 2.0;
-
-			}
+			ypos -= (6.0)* velocity;
 
 		}
 
+		if (kstate[SDL_SCANCODE_DOWN]) {
+			ypos += 2.0* velocity;
+
+		}
+		if (kstate[SDL_SCANCODE_P]){
+			pauseState++;
+		velocity = 1 * (pauseState%2);
+		std::cout << pauseState << " pause State" << std::endl;
+		}
+
+			ypos+=getVelocity();
+
+	}
 
 
+	collider.x = xpos;
+	collider.y = ypos;
+	collider.w = collider.h = 32;
+	elo = collideEnemy(collider);
+	//std::cout << "Elo " << elo << std::endl;
+	if (elo)
+	{
+		alive = false;
+		std::cout << "dead" << std::endl;
+		
+	}
 
-
-
-
-
-
-    ypos++;
-	srcRect.h = 32;
+  	srcRect.h = 22;
 	srcRect.w = 32;
 	srcRect.y = 0;
+
 	if (mod <= 6) {
 		srcRect.x = 32;
 	}
@@ -64,7 +70,7 @@ void GameObject::Update(int mod) {
 		srcRect.x = 0;
 	}
 
-	counter++;
+	
 	
 	destRect.x = xpos;
 	destRect.y = ypos;
@@ -82,4 +88,31 @@ void GameObject::Render() {
 void GameObject::set_camera() {
 
 
+}
+
+int GameObject::getVelocity() {
+	return velocity;
+}
+
+bool GameObject::collideEnemy(SDL_Rect player)
+{
+	std::cout << collidingRects.size() << std::endl;;
+	for (const auto &i : collidingRects)
+	{
+		
+		if (physics->CheckCollision(player, i))
+		{
+			std::cout << " collidegameobj " << std::endl;
+			return true;
+		}
+
+
+
+
+	}
+	return false;
+}
+void GameObject::setCollidingRects(std::vector<SDL_Rect> vector)
+{
+	this->collidingRects = vector;
 }
