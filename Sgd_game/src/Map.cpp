@@ -43,7 +43,7 @@ void Map::LoadMap(int arr[16][50]) {
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
 }
-double offset = 0;
+
 void Map::DrawMap(int velocity) {
 
 	int type = 0;
@@ -54,20 +54,19 @@ void Map::DrawMap(int velocity) {
 
 			for (int col = 0; col < 50; col++) {
 
-				type = map[row][col];
-				dest.x = (col * 32) - offset;
-				dest.y = row * 32;
-
-
-				if (counter == 0 && type == 1)
+			if (counter == 0 && type == 1)
 				{
 
 					collider.x = dest.x;
 					collider.y = dest.y;
 					collider.h = collider.w = 32;
-					std::cout << "colider made at " << dest.x << std::endl;
 					colliders.push_back(collider);
+					//std::cout << "collider made at :" << collider.x << "  y: " << collider.y << std::endl;
 				}
+
+				type = map[row][col];
+				dest.x = (col * 32) - offset;
+				dest.y = row * 32;
 				switch (type) {
 				case 0:
 					TextureManager::Draw(sky, src, dest);
@@ -92,4 +91,6 @@ std::vector<SDL_Rect> Map::getColliders()
 			return this->colliders;
 	
 }
-
+int Map::getOffset() {
+	return offset;
+}

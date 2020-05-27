@@ -5,7 +5,7 @@ Game *game = nullptr;
 int frameAnime = 0;
 int main(int argc, char *arhv[]) {
 
-	const int FPS = 60;
+	const int FPS = 45;
 	const int frameDelay = 1000 / FPS;
 
 	Uint32 frameStart;
@@ -16,7 +16,6 @@ int main(int argc, char *arhv[]) {
 	while (game->running()) {
 
 		frameStart = SDL_GetTicks();
-		
 		game->handleEvents();
 		game->update(frameAnime);
 		game->render();

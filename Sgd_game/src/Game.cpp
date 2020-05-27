@@ -36,7 +36,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 	player = new GameObject("player.png", 32,256);
 	map = new Map();
-		
+
 }
 
 void Game::handleEvents(){
@@ -54,14 +54,15 @@ void Game::handleEvents(){
 void Game::update(int mod){
 
 		player->Update(mod);
+		player->setCollidingRects(map->getColliders());
 
 
 };
 void Game::render(){
 	SDL_RenderClear(renderer);
 	map->DrawMap(player->getVelocity());
+	player->setOffset(map->getOffset());
 	player->Render();
-	player->setCollidingRects(map->getColliders());
 
 	SDL_RenderPresent(renderer);
 };

@@ -1,9 +1,10 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 #include "Physics.h"
-int pauseState = 1;
-bool elo;
+int pauseState = 0;
+bool collided;
 Physics *physics;
+
 GameObject::GameObject(const char* texturesheet, int x, int y) {
 
 	objTexture = TextureManager::LoadTexture(texturesheet);
@@ -36,27 +37,27 @@ void GameObject::Update(int mod) {
 			ypos += 2.0* velocity;
 
 		}
-		if (kstate[SDL_SCANCODE_P]){
-			pauseState++;
-		velocity = 1 * (pauseState%2);
-		std::cout << pauseState << " pause State" << std::endl;
-		}
+//		if (kstate[SDL_SCANCODE_P]){
+//			pauseState++;
+//		velocity = 1 * (pauseState%2);
+//		std::cout << pauseState << " pause State" << std::endl;
+//		}
 
 			ypos+=getVelocity();
 
 	}
+	
 
-
-	collider.x = xpos;
+	collider.x = xpos + offset;
+	std::cout << offset << " Offset" << std::endl;
 	collider.y = ypos;
 	collider.w = collider.h = 32;
-	elo = collideEnemy(collider);
-	//std::cout << "Elo " << elo << std::endl;
-	if (elo)
+	std::cout << "xpos= " << collider.x << "ypos" << collider.y << std::endl;
+	collided = collideEnemy(collider);
+	if (collided)
 	{
 		alive = false;
-		std::cout << "dead" << std::endl;
-		
+		velocity = 0;
 	}
 
   	srcRect.h = 22;
@@ -85,10 +86,7 @@ void GameObject::Render() {
 }
 
 
-void GameObject::set_camera() {
 
-
-}
 
 int GameObject::getVelocity() {
 	return velocity;
@@ -96,13 +94,14 @@ int GameObject::getVelocity() {
 
 bool GameObject::collideEnemy(SDL_Rect player)
 {
-	std::cout << collidingRects.size() << std::endl;;
+	//std::cout << collidingRects.size() << std::endl;;
 	for (const auto &i : collidingRects)
 	{
 		
 		if (physics->CheckCollision(player, i))
 		{
-			std::cout << " collidegameobj " << std::endl;
+			std::cout << "ipos " << i.x  << ":x  y:"<< i.y << std::endl;
+			//std::cout << " collidegameobj " << std::endl;
 			return true;
 		}
 
@@ -115,4 +114,8 @@ bool GameObject::collideEnemy(SDL_Rect player)
 void GameObject::setCollidingRects(std::vector<SDL_Rect> vector)
 {
 	this->collidingRects = vector;
+}
+
+void GameObject::setOffset(int o) {
+	offset = o;
 }

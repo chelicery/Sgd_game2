@@ -5,9 +5,10 @@ Physics::~Physics(){}
 
 
 
+
 bool Physics::CheckCollision(const SDL_Rect a, const SDL_Rect b)
 {
-	std::cout << "check collicions" << std::endl;
+	//std::cout << "check collicions" << std::endl;
 	if (
 		a.x + a.w >= b.x &&
 		b.x + b.w >= a.x &&

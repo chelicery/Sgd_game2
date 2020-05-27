@@ -9,11 +9,7 @@ public:
 	void LoadMap(int arr[16][50]);
 	void DrawMap(int velocity);
 	std::vector<SDL_Rect> getColliders();
-
-
-
-
-
+	int getOffset();
 private:
 	SDL_Rect src, dest;
 	SDL_Texture* mud;
@@ -22,5 +18,6 @@ private:
 	SDL_Rect collider;
 	std::vector<SDL_Rect> colliders;
 	int map[16][50];
+	int offset;
 };
 
