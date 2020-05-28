@@ -12,9 +12,13 @@ public:
 	void Update(int mod);
 	void Render();
 	int getVelocity();
+	enum playerStatus { WORKING, PAUSED, GAMEOVER};
+
 	bool collideEnemy(SDL_Rect player);
 	void setCollidingRects(std::vector<SDL_Rect> vector);
 	void setOffset(int offset);
+	void setVelocity(int v);
+	void updateStatus(playerStatus stat = WORKING);
 
 private:
 	int offset;

@@ -17,8 +17,7 @@ void GameObject::Update(int mod) {
 
 
 	if (alive) {
-
-
+	
 		auto kstate = SDL_GetKeyboardState(NULL);
 
 		if (kstate[SDL_SCANCODE_LEFT]) {
@@ -32,27 +31,20 @@ void GameObject::Update(int mod) {
 			ypos -= (6.0)* velocity;
 
 		}
-
 		if (kstate[SDL_SCANCODE_DOWN]) {
 			ypos += 2.0* velocity;
 
 		}
-//		if (kstate[SDL_SCANCODE_P]){
-//			pauseState++;
-//		velocity = 1 * (pauseState%2);
-//		std::cout << pauseState << " pause State" << std::endl;
-//		}
 
 			ypos+=getVelocity();
-
 	}
 	
 
 	collider.x = xpos + offset;
-	std::cout << offset << " Offset" << std::endl;
+	//std::cout << offset << " Offset" << std::endl;
 	collider.y = ypos;
 	collider.w = collider.h = 32;
-	std::cout << "xpos= " << collider.x << "ypos" << collider.y << std::endl;
+	//std::cout << "xpos= " << collider.x << "ypos" << collider.y << std::endl;
 	collided = collideEnemy(collider);
 	if (collided)
 	{
@@ -118,4 +110,48 @@ void GameObject::setCollidingRects(std::vector<SDL_Rect> vector)
 
 void GameObject::setOffset(int o) {
 	offset = o;
+}
+
+void GameObject::setVelocity(int v) {
+	velocity = v;
+}
+
+void GameObject::updateStatus(playerStatus e){
+
+		switch (e) {
+		case PAUSED:
+			srcRect.h = 50;
+			srcRect.w = 180;
+			destRect.w = 180;
+			destRect.h =50;
+			srcRect.x = 0;
+			srcRect.y = 79;
+			destRect.x = xpos;
+			destRect.y = ypos;
+			//destRect.h = 60;
+			break;
+		case GAMEOVER:
+			srcRect.h = 24;
+			srcRect.w = 180;
+			destRect.w = 180;
+			destRect.h = 24;
+			srcRect.x = 0;
+			srcRect.y = 60;
+			destRect.x = xpos;
+			destRect.y = ypos;
+			destRect.h = 60;
+			break;
+		case WORKING:
+			srcRect.h = 24;
+			srcRect.w = 180;		
+			srcRect.x = 0;
+			srcRect.y = 0;
+			destRect.w = 120;
+			destRect.h = 20;
+			destRect.x = 0 ; 
+			destRect.y = 0;
+			break;
+		}
+	
+
 }

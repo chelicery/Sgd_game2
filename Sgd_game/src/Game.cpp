@@ -4,6 +4,7 @@
 #include "Map.h"
 
 GameObject* player; 
+GameObject* gameStatus;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
@@ -34,8 +35,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		}
 		isRunning = true;
 	}
-	player = new GameObject("player.png", 32,256);
+	player = new GameObject("assets/player.png", 32,256);
+	gameStatus = new GameObject("assets/over.png", 80, 240);
 	map = new Map();
+	
 
 }
 
@@ -46,6 +49,23 @@ void Game::handleEvents(){
 	case SDL_QUIT:
 		isRunning = false;
 		break;
+	case SDL_KEYDOWN:
+		/* Check the SDLKey values and move change the coords */
+		switch (event.key.keysym.sym) {
+		case SDLK_p:
+			player->setVelocity(0);
+			gameStatus->updateStatus(gameStatus->PAUSED);
+
+			break;
+		case SDLK_s:
+			player->setVelocity(1);
+			gameStatus->updateStatus(gameStatus->WORKING);
+
+			break;
+		default:
+			break;
+		}
+
 	default:
 		break;
 	}
@@ -55,15 +75,15 @@ void Game::update(int mod){
 
 		player->Update(mod);
 		player->setCollidingRects(map->getColliders());
-
-
+		//player->updateStatus(player->PAUSED);
+		
 };
 void Game::render(){
 	SDL_RenderClear(renderer);
 	map->DrawMap(player->getVelocity());
 	player->setOffset(map->getOffset());
 	player->Render();
-
+	gameStatus->Render();
 	SDL_RenderPresent(renderer);
 };
 void Game::clean(){
