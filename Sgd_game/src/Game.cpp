@@ -75,7 +75,7 @@ void Game::update(int mod){
 
 		player->Update(mod);
 		player->setCollidingRects(map->getColliders());
-		//player->updateStatus(player->PAUSED);
+		gameStatus->updateStatus(player->getStatus());
 		
 };
 void Game::render(){
@@ -84,6 +84,7 @@ void Game::render(){
 	player->setOffset(map->getOffset());
 	player->Render();
 	gameStatus->Render();
+
 	SDL_RenderPresent(renderer);
 };
 void Game::clean(){

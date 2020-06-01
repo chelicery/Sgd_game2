@@ -15,6 +15,7 @@ private:
 	SDL_Texture* mud;
 	SDL_Texture* top;
 	SDL_Texture* sky;
+	SDL_Texture* finish;
 	SDL_Rect collider;
 	std::vector<SDL_Rect> colliders;
 	int map[16][50];
