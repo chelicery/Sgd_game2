@@ -144,13 +144,13 @@ void GameObject::updateStatus(playerStatus e){
 		case GAMEOVER:
 			srcRect.h = 28;
 			srcRect.w = 180;
-			destRect.w = 180;
+			destRect.w = 360;
 			destRect.h = 24;
 			srcRect.x = 0;
 			srcRect.y = 24;
 			destRect.x = 80;
 			destRect.y = 200;
-			destRect.h = 56;
+			destRect.h = 112;
 			break;
 		case WORKING:
 			srcRect.h = 24;
@@ -167,11 +167,11 @@ void GameObject::updateStatus(playerStatus e){
 			srcRect.w = 120;
 			srcRect.x = 0;
 			srcRect.y = 128;
-			destRect.w = 120;
-			destRect.h = 20;
+			destRect.w = 240;
+			destRect.h = 40;
 			destRect.x = 56;
 			destRect.y = 200;
-			std::cout << "zwycienzom" << std::endl;
+		
 			break;
 		}
 	
