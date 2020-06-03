@@ -17,8 +17,9 @@ GameObject::GameObject(const char* texturesheet, int x, int y) {
 void GameObject::Update(int mod) {
 
 
-	if (alive && GameObject::keepInFrames()) {
-	
+	if (alive && GameObject::keepInFrames() && velocity>=0.1) {
+		ypos++;
+
 		auto kstate = SDL_GetKeyboardState(NULL);
 		if (offset > 1280) {
 			xpos += velocity;
@@ -43,7 +44,6 @@ void GameObject::Update(int mod) {
 
 		}
 		
-		ypos++;
 	}
 	
 	
@@ -51,7 +51,7 @@ void GameObject::Update(int mod) {
 	collider.y = ypos;
 	collider.w = 32;
 	collider.h = 22;
-
+	 
 	collided = collideEnemy(collider);
 
 	if (collided)
@@ -66,6 +66,7 @@ void GameObject::Update(int mod) {
 	srcRect.y = 0;
 	if (offset + xpos > 1600-32) {
 		status = WON;
+		alive = false;
 	}
 
 	if (mod <= 6) {
@@ -192,5 +193,10 @@ bool GameObject::keepInFrames() {
 GameObject::playerStatus GameObject::getStatus()
 {
 	return status;
+}
+
+bool GameObject::isAlive()
+{
+	return alive;
 }
 

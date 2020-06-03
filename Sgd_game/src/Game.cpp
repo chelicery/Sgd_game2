@@ -73,10 +73,15 @@ void Game::handleEvents(){
 };
 void Game::update(int mod){
 
-		player->Update(mod);
-		player->setCollidingRects(map->getColliders());
-		gameStatus->updateStatus(player->getStatus());
 		
+		if (player->isAlive()) {
+			
+			player->Update(mod);
+			player->setCollidingRects(map->getColliders());
+		}
+		else {
+			gameStatus->updateStatus(player->getStatus());
+		}
 };
 void Game::render(){
 	SDL_RenderClear(renderer);

@@ -21,6 +21,7 @@ public:
 	void updateStatus(playerStatus stat = WORKING);
 	bool keepInFrames();
 	playerStatus getStatus();
+	bool isAlive();
 private:
 	int offset;
 	int xpos;
