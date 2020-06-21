@@ -64,11 +64,12 @@ void GameObject::Update(int mod) {
   	srcRect.h = 22;
 	srcRect.w = 32;
 	srcRect.y = 0;
+	//je¿eli dotarl do koñca
 	if (offset + xpos > 1600-32) {
 		status = WON;
 		alive = false;
 	}
-
+	//"animacja"
 	if (mod <= 6) {
 		srcRect.x = 32;
 	}
@@ -144,13 +145,13 @@ void GameObject::updateStatus(playerStatus e){
 		case GAMEOVER:
 			srcRect.h = 28;
 			srcRect.w = 180;
-			destRect.w = 360;
+			destRect.w = 240;
 			destRect.h = 24;
 			srcRect.x = 0;
 			srcRect.y = 24;
 			destRect.x = 80;
 			destRect.y = 200;
-			destRect.h = 112;
+			destRect.h = 20;
 			break;
 		case WORKING:
 			srcRect.h = 24;

@@ -78,7 +78,7 @@ void Game::update(int mod){
 			
 			player->Update(mod);
 			player->setCollidingRects(map->getColliders());
-		}
+		} 
 		else {
 			gameStatus->updateStatus(player->getStatus());
 		}
